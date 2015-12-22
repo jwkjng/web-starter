@@ -3,7 +3,9 @@ var webpack       = require('gulp-webpack');
 var webpackConfig = require('./webpack.config');
 var sass          = require('gulp-sass');
 var clean         = require('gulp-clean');
+var runSequence   = require('run-sequence');
 var path          = require('path');
+var updateSchema  = require('./build/updateSchema');
 
 var config = {
   port: 5555
@@ -35,7 +37,20 @@ gulp.task('webpack', function () {
     .pipe(gulp.dest(WEBPACK_DIST));
 });
 
-gulp.task('default', ['clean', 'webpack', 'sass'], function () {
+gulp.task('relay', function () {
+  updateSchema();
+});
+
+gulp.task('server', function () {
   var server = require('./');
   server(config);
+});
+
+gulp.task('default', function () {
+  runSequence(
+    'clean',
+    'relay',
+    ['webpack', 'sass'],
+    'server'
+  );
 });

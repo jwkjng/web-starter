@@ -1,11 +1,14 @@
-var express = require('express');
+var express       = require('express');
+var graphqlServer = require('express-graphql');
+var schema        = require('./schema');
 var app = express();
 
-app.use('/assets', express.static('dist'));
+app.use('/graphql', graphqlServer({ schema: schema }));
 
-app.get('/', function (req, res) {
-  res.send('Hello Index');
-});
+app.use('/', express.static('dist'));
+// app.get('/', function (req, res) {
+//   res.send('Hello Index');
+// });
 
 module.exports = function (options) {
   var server = app.listen(options.port, function () {

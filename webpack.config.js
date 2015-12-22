@@ -1,3 +1,4 @@
+var path = require('path');
 module.exports = {
   context: __dirname + '/app',
   entry: {
@@ -11,10 +12,16 @@ module.exports = {
   module: {
     loaders: [
       {
-        test: /\.jsx$/,
         exclude: /node_modules/,
-        loaders: ['babel-loader']
+        test: /\.jsx$/,
+        loader: 'babel-loader',
+        query: {stage: 0, plugins: ['./build/babelRelayPlugin']}
       },
+      // {
+      //   test: /\.jsx$/,
+      //   exclude: /node_modules/,
+      //   loaders: ['babel-loader']
+      // },
       {
         test: /\.html$/,
         loader: 'file?name=[name].[ext]'

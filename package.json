@@ -4,17 +4,25 @@
   "description": "O'an Wan Strategy Board Game",
   "main": "index.js",
   "scripts": {
+    "start": "gulp",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Jason Jung <jwkjng@gmail.com>",
   "license": "ISC",
   "dependencies": {
+    "babel-relay-plugin": "^0.6.1",
     "express": "^4.13.3",
+    "express-graphql": "^0.4.5",
+    "graphql": "^0.4.14",
+    "graphql-relay": "^0.3.6",
     "gulp-sass": "^2.1.1",
     "react": "^0.14.0",
-    "react-dom": "^0.14.0"
+    "react-dom": "^0.14.0",
+    "react-relay": "^0.6.0",
+    "run-sequence": "^1.1.5"
   },
   "devDependencies": {
+    "babel": "^6.3.13",
     "babel-core": "^5.8.25",
     "babel-loader": "^5.3.2",
     "file-loader": "^0.8.4",
