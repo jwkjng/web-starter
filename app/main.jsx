@@ -1,7 +1,8 @@
 import React from 'react';
+import ReactDOM from 'react-dom'
 import Test from './test';
 
-React.render(
-  <Test name="World"/>,
+ReactDOM.render(
+  <Test name="World!"/>,
   document.body
 );

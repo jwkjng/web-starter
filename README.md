@@ -19,7 +19,8 @@ gulp
 
 ### Server
 * `Express`
-* `Rendering / Data Fetching` - TBD (`GraphQL`, `Falcor`, etc)
+* `GraphQL`
+* `Server Side Rendering` - TBD
 
 
 ### CSS
