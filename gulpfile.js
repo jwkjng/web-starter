@@ -8,7 +8,7 @@ var path          = require('path');
 var updateSchema  = require('./build/updateSchema');
 
 var config = {
-  port: 5555
+  port: 3333
 };
 
 var WEBPACK_ENTRY = 'app/main.jsx';

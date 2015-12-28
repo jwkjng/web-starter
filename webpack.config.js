@@ -3,7 +3,7 @@ module.exports = {
   context: __dirname + '/app',
   entry: {
     javascript: './main.jsx',
-    html: './pages/index.html'
+    html: '../pages/index.html'
   },
   output: {
     filename: 'main.js',
@@ -17,11 +17,6 @@ module.exports = {
         loader: 'babel-loader',
         query: {stage: 0, plugins: ['./build/babelRelayPlugin']}
       },
-      // {
-      //   test: /\.jsx$/,
-      //   exclude: /node_modules/,
-      //   loaders: ['babel-loader']
-      // },
       {
         test: /\.html$/,
         loader: 'file?name=[name].[ext]'

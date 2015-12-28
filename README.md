@@ -9,7 +9,7 @@ npm install
 
 ### Run
 ```javascript
-gulp
+npm start
 ```
 
 ## Implementation
@@ -20,9 +20,10 @@ gulp
 
 
 ## Architecture
-### Javascript
+### Client
 * `React`
 * `Relay`
+* `React-Router-Relay`
 
 ### Server
 * `Express`

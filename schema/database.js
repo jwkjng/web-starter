@@ -1,71 +1,46 @@
-function User(id, name) {
-  this.id = id.toString();
-  this.name = name;
-}
+'use strict';
 
-function Framework(id, name) {
-  this.id = id.toString();
-  this.name = name;
-}
-
-function Conference(id, frameworkId, name, description, attendees) {
-  this.id = id.toString();
-  this.framework = frameworkId;
-  this.name = name;
-  this.description = description;
-  this.attendees = attendees;
-}
+var Store     = require('./models').Store;
+var Coffee    = require('./models').Coffee;
 
 /**
- * Fake data
+ * Data stubs
  */
-
-var users = [
-  new User(1, 'Ryan'),
-  new User(2, 'George')
+var stores = [
+  new Store(1, 'Fresh Brewed Coffee'),
+  new Store(2, 'Z-Coffee')
 ];
 
-var frameworks = [
-  new Framework(1, 'AngularJS'),
-  new Framework(2, 'React'),
-  new Framework(3, 'JavaScript'),
-  new Framework(4, 'NodeJS')
+var coffeeList = [
+  new Coffee(1, 1, 'Americano', 2.50),
+  new Coffee(2, 1, 'Latte', 3.50),
+  new Coffee(3, 1, 'Cappuccino', 3.50),
+  new Coffee(4, 1, 'Mocha', 3.75),
+  new Coffee(5, 2, 'Americano', 1.50),
+  new Coffee(6, 2, 'Caramel Latte', 2.50),
+  new Coffee(7, 2, 'Green Tea Latte', 2.50),
+  new Coffee(8, 2, 'Mocha', 2.75)
 ];
 
-var conferences = [
-  new Conference(1, 1, 'ng-conf', 'The world\'s best Angular conference', [1,2]),
-  new Conference(2, 2, 'React Rally', 'Conference focusing on Facebook\'s React', [1]),
-  new Conference(3, 1, 'ng-Vegas', 'Two days jam-packed with Angular goodness with a focus on Angular 2', [2]),
-  new Conference(4, 3, 'Midwest JS', 'Midwest JS is a premier technology conference focused on the JavaScript ecosystem.', [2]),
-  new Conference(5, 4, 'NodeConf', 'NodeConf is the longest running community driven conference for the Node community.', [1,2])
-];
+module.exports.getStore = function (id) {
+  return stores.filter(function (store) {
+    return store.id === id;
+  })[0];
+};
 
-module.exports = {
-  User: User,
-  Framework: Framework,
-  Conference: Conference,
+module.exports.getCoffee = function (id) {
+  return coffeeList.filter(function(coffee) {
+    return coffee.id == id;
+  })[0];
+};
 
-  getUser: function(id) {
-    return users.filter(function(user) {
-      return user.id == id
-    })[0]
-  },
+module.exports.getCoffeeListByStore = function (storeId) {
+  var list = [];
+  coffeeList.forEach(function(coffee) {
+    if (coffee.storeId === storeId) {
+      list.push(coffee);
+    }
+  });
 
-  getConference: function(id) {
-    return conferences.filter(function(conference) {
-      return conference.id == id
-    })[0]
-  },
-
-  getConferencesByUser: function(userId) {
-    var confs = [];
-    conferences.forEach(function(conf) {
-      conf.attendees.forEach(function(user) {
-        if (user == userId) {
-          confs.push(conf);
-        }
-      });
-    });
-    return confs;
-  }
+  return list;
 };

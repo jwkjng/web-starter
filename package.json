@@ -1,5 +1,5 @@
 {
-  "name": "oanwan",
+  "name": "web-starter",
   "version": "0.0.1",
   "description": "O'an Wan Strategy Board Game",
   "main": "index.js",
@@ -10,7 +10,7 @@
   "author": "Jason Jung <jwkjng@gmail.com>",
   "license": "ISC",
   "dependencies": {
-    "babel-relay-plugin": "^0.6.1",
+    "babel-relay-plugin": "0.6.0",
     "express": "^4.13.3",
     "express-graphql": "^0.4.5",
     "graphql": "^0.4.14",
@@ -19,6 +19,8 @@
     "react": "^0.14.0",
     "react-dom": "^0.14.0",
     "react-relay": "^0.6.0",
+    "react-router": "^1.0.2",
+    "react-router-relay": "^0.8.0",
     "run-sequence": "^1.1.5"
   },
   "devDependencies": {

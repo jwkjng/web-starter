@@ -1,20 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom'
 import Relay from 'react-relay'
-import ConferenceApp from './components/ConferenceApp'
+import CoffeeApp from './components/CoffeeApp'
 
 
 ReactDOM.render(
   <Relay.RootContainer
-    Component={ConferenceApp.Container}
-    route={ConferenceApp.queries}
+    Component={CoffeeApp.Container}
+    route={CoffeeApp.queries}
     onReadyStateChange={({error}) => { if (error) console.error(error); }} />,
-  document.getElementById('container')
+  document.getElementById('main')
 );
-
-// import Test from './test';
-
-// ReactDOM.render(
-//   <Test name="World!"/>,
-//   document.body
-// );

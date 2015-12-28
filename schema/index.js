@@ -1,101 +1,72 @@
-var GraphQL = require('graphql');
-var GraphQLRelay = require('graphql-relay');
-var db = require('./database');
-
-// The schema describes the types and queries for our data and
-// is the spot to register them
-
-// We need to set up our node definitions to provide a node interface.
-// Relay uses global ids for entities
+var GraphQL       = require('graphql');
+var GraphQLRelay  = require('graphql-relay');
+var models        = require('./models');
+var db            = require('./database');
 
 var nodeDefinitions = GraphQLRelay.nodeDefinitions(function(globalId) {
   var idInfo = GraphQLRelay.fromGlobalId(globalId)
-  if (idInfo.type == 'User') {
-    return db.getUser(idInfo.id)
-  } else if(idInfo == 'Conference') {
-    return db.getConference(idInfo.id)
+  if (idInfo.type == 'Store') {
+    return db.getStore(idInfo.id)
+  } else if(idInfo == 'Coffee') {
+    return db.getCoffee(idInfo.id)
   }
   return null;
 });
 
-
-
-
-var conferenceType = new GraphQL.GraphQLObjectType({
-  name: 'Conference',
-  description: 'A conference',
-
-  // Relay will use this function to determine if an object in your system is
-  // of a particular GraphQL type
-  isTypeOf: function(obj) { return obj instanceof db.Conference },
-
-  fields: {
-    id: GraphQLRelay.globalIdField('Conference'),
+var storeType = new GraphQL.GraphQLObjectType({
+  name: 'Store',
+  description: 'Coffee Store',
+  isTypeOf: function(obj) { return obj instanceof models.Store },
+  fields: () => ({
+    id: GraphQLRelay.globalIdField('Store'),
     name: {
       type: GraphQL.GraphQLString,
-      description: 'The name of the conference',
+      description: 'The name of the Store',
     },
-    description: {
+    coffeeList: {
+      description: 'A list of coffee items for a store',
+      type: GraphQLRelay.connectionDefinitions({name: 'Coffee', nodeType: coffeeType}).connectionType,
+      args: {
+        defaultStore: { type: GraphQL.GraphQLInt }
+      },
+      resolve: function(store, args) {
+        return GraphQLRelay.connectionFromArray(db.getCoffeeListByStore(args.defaultStore), args)
+      }
+    }
+  }),
+  interfaces: [nodeDefinitions.nodeInterface]
+});
+
+var coffeeType = new GraphQL.GraphQLObjectType({
+  name: 'Coffee',
+  description: 'A coffee item',
+  isTypeOf: function(obj) { return obj instanceof models.Coffee },
+  fields: () => ({
+    id: GraphQLRelay.globalIdField('Coffee'),
+    name: {
       type: GraphQL.GraphQLString,
-      description: 'The description of the conference'
+      description: 'The name of the coffee',
+    },
+    price: {
+      type: GraphQL.GraphQLFloat,
+      description: 'The price of the coffee'
     }
-  },
-  // This declares this GraphQL type as a Node
-  interfaces: [nodeDefinitions.nodeInterface],
+  }),
+  interfaces: [nodeDefinitions.nodeInterface]
 });
 
-var userType = new GraphQL.GraphQLObjectType({
-  name: 'User',
-  description: 'A person who uses our app',
-  isTypeOf: function(obj) { return obj instanceof db.User },
-
-  fields: function() {
-    return {
-      id: GraphQLRelay.globalIdField('User'),
-      name: {
-        type: GraphQL.GraphQLString,
-        description: 'The name of the user',
-      },
-
-      // We can set up a relationship between users and conferences here
-      conferences: {
-        description: 'A listing of the user\'s conferences',
-
-        // Relay gives us helper functions to define the Connection and its args
-        type: GraphQLRelay.connectionDefinitions({name: 'Conference', nodeType: conferenceType}).connectionType,
-
-        // argument to tell GraphQL which user to pass back
-        // in the resolve block
-        args: {
-          userToShow: { type: GraphQL.GraphQLInt }
-        },
-
-        // The resolve block will complete a query and pass back
-        // data for the user id supplied by the arguments we pass in
-        resolve: function(user, args) {
-          return GraphQLRelay.connectionFromArray(db.getConferencesByUser(args.userToShow), args)
-        },
-      },
+var queryType = new GraphQL.GraphQLObjectType({
+  name: 'Query',
+  fields: () => ({
+    node: nodeDefinitions.nodeField,
+    store: {
+      type: storeType,
+      resolve: () => db.getStore(1)
     }
-  },
-  interfaces: [nodeDefinitions.nodeInterface],
+  })
 });
-
 
 // Types and queries are exported with GraphQLSchema
 module.exports = new GraphQL.GraphQLSchema({
-  query: new GraphQL.GraphQLObjectType({
-    name: 'Query',
-    fields: {
-      // Relay needs this to query Nodes using global IDs
-      node: nodeDefinitions.nodeField,
-      // Root queries
-      user: {
-        type: userType,
-        resolve: function() {
-          return db.getUser(1)
-        },
-      },
-    },
-  }),
+  query: queryType
 });
