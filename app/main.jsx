@@ -1,13 +1,12 @@
 import React from 'react';
-import ReactDOM from 'react-dom'
-import Relay from 'react-relay'
-import CoffeeApp from './components/CoffeeApp'
-
+import ReactDOM from 'react-dom';
+import Relay from 'react-relay';
+import {RelayRouter} from 'react-router-relay';
+import {createHashHistory} from 'history';
+import routes from '../routes';
+import CoffeeList from './components/CoffeeList';
 
 ReactDOM.render(
-  <Relay.RootContainer
-    Component={CoffeeApp.Container}
-    route={CoffeeApp.queries}
-    onReadyStateChange={({error}) => { if (error) console.error(error); }} />,
+  <RelayRouter history={createHashHistory({queryKey:false})} routes={routes} />,
   document.getElementById('main')
 );

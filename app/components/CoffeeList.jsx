@@ -2,7 +2,7 @@ import React from 'react'
 import Relay from 'react-relay'
 
 // Top-level Component
-class CoffeeApp extends React.Component {
+class CoffeeList extends React.Component {
   render() {
     var coffeeList = this.props.store.coffeeList.edges;
     return (
@@ -33,7 +33,7 @@ class Coffee extends React.Component {
   }
 }
 
-exports.Container = Relay.createContainer(CoffeeApp, {
+export default Relay.createContainer(CoffeeList, {
   initialVariables: {
     defaultStore: 1
   },
@@ -54,11 +54,3 @@ exports.Container = Relay.createContainer(CoffeeApp, {
     `
   },
 });
-
-exports.queries = {
-  name: 'CoffeeQueries',
-  params: {},
-  queries: {
-    store: () => Relay.QL`query { store }`
-  },
-}

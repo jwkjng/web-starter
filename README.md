@@ -11,6 +11,8 @@ npm install
 ```javascript
 npm start
 ```
+Browse to *http://localhost:3333* and *http://localhost:3333/#/2* for store 2.
+
 
 ## Implementation
 

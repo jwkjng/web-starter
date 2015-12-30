@@ -1,6 +1,6 @@
 {
   "name": "web-starter",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "O'an Wan Strategy Board Game",
   "main": "index.js",
   "scripts": {
@@ -16,6 +16,7 @@
     "graphql": "^0.4.14",
     "graphql-relay": "^0.3.6",
     "gulp-sass": "^2.1.1",
+    "history": "^1.17.0",
     "react": "^0.14.0",
     "react-dom": "^0.14.0",
     "react-relay": "^0.6.0",
