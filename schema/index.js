@@ -27,10 +27,10 @@ var storeType = new GraphQL.GraphQLObjectType({
       description: 'A list of coffee items for a store',
       type: GraphQLRelay.connectionDefinitions({name: 'Coffee', nodeType: coffeeType}).connectionType,
       args: {
-        defaultStore: { type: GraphQL.GraphQLInt }
+        storeId: { type: GraphQL.GraphQLString }
       },
-      resolve: function(store, args) {
-        return GraphQLRelay.connectionFromArray(db.getCoffeeListByStore(args.defaultStore), args)
+      resolve: function (store, args) {
+        return GraphQLRelay.connectionFromArray(db.getCoffeeListByStore(args.storeId), args);
       }
     }
   }),
@@ -61,7 +61,8 @@ var queryType = new GraphQL.GraphQLObjectType({
     node: nodeDefinitions.nodeField,
     store: {
       type: storeType,
-      resolve: () => db.getStore(1)
+      args: { storeId: { type: GraphQL.GraphQLString } },
+      resolve: (root, args) => db.getStore(args.storeId)
     }
   })
 });

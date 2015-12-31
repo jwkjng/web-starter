@@ -22,22 +22,22 @@ var coffeeList = [
   new Coffee(8, 2, 'Mocha', 2.75)
 ];
 
-module.exports.getStore = function (id) {
+module.exports.getStore = function getStore(id) {
   return stores.filter(function (store) {
-    return store.id === id;
+    return store.id == id;
   })[0];
 };
 
-module.exports.getCoffee = function (id) {
+module.exports.getCoffee = function getCoffee(id) {
   return coffeeList.filter(function(coffee) {
     return coffee.id == id;
   })[0];
 };
 
-module.exports.getCoffeeListByStore = function (storeId) {
+module.exports.getCoffeeListByStore = function getCoffeeListByStore(storeId) {
   var list = [];
   coffeeList.forEach(function(coffee) {
-    if (coffee.storeId === storeId) {
+    if (coffee.storeId == storeId) {
       list.push(coffee);
     }
   });

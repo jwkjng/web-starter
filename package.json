@@ -1,6 +1,6 @@
 {
   "name": "web-starter",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "O'an Wan Strategy Board Game",
   "main": "index.js",
   "scripts": {
@@ -8,6 +8,14 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Jason Jung <jwkjng@gmail.com>",
+  "keywords": [
+    "React",
+    "Relay",
+    "GraphQL",
+    "Express",
+    "Relay Starter",
+    "Web Template"
+  ],
   "license": "ISC",
   "dependencies": {
     "babel-relay-plugin": "0.6.0",

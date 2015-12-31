@@ -11,7 +11,7 @@ npm install
 ```javascript
 npm start
 ```
-Browse to *http://localhost:3333* and *http://localhost:3333/#/2* for store 2.
+Browse to *http://localhost:3333* and *http://localhost:3333/2* for store 2.
 
 
 ## Implementation
@@ -23,14 +23,13 @@ Browse to *http://localhost:3333* and *http://localhost:3333/#/2* for store 2.
 
 ## Architecture
 ### Client
-* `React`
-* `Relay`
-* `React-Router-Relay`
+* [React.js](https://facebook.github.io/react)
+* [Relay](https://facebook.github.io/relay/)
+* [React-Router-Relay](https://github.com/relay-tools/react-router-relay)
 
 ### Server
 * `Express`
-* `GraphQL`
-* `Server Side Rendering` - TBD
+* [GraphQL](https://facebook.github.io/graphql/)
 
 
 ### CSS

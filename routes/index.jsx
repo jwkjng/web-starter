@@ -7,7 +7,7 @@ import storeQuery from '../queries/store';
 function prepareCoffeeListParams(params, route) {
   return {
     ...params,
-    defaultStore: params.defaultStore ? parseInt(params.defaultStore) : 1
+    storeId: params.storeId || "1"
   };
 }
 
@@ -15,14 +15,13 @@ export default (
   <Route
     path="/"
     component={App}
-    queries={storeQuery}>
+    queries={storeQuery} >
     <IndexRoute
       component={CoffeeList}
       queries={storeQuery}
       prepareParams={prepareCoffeeListParams} />
     <Route
-      path=":defaultStore"
-      prepareParams={prepareCoffeeListParams}
+      path=":storeId"
       component={CoffeeList}
       queries={storeQuery} />
   </Route>

@@ -4,10 +4,11 @@ import Relay from 'react-relay'
 // Top-level Component
 class CoffeeList extends React.Component {
   render() {
-    var coffeeList = this.props.store.coffeeList.edges;
+    var store = this.props.store;
+    var coffeeList = store.coffeeList.edges;
     return (
       <div className="coffeeList">
-        <h2>{this.props.store.name}</h2>
+        <h2>{store.name}</h2>
         {
           coffeeList.map(edge =>
             <ul>
@@ -35,13 +36,13 @@ class Coffee extends React.Component {
 
 export default Relay.createContainer(CoffeeList, {
   initialVariables: {
-    defaultStore: 1
+    storeId: 1
   },
   fragments: {
     store: () => Relay.QL`
       fragment on Store {
         name,
-        coffeeList(defaultStore: $defaultStore) {
+        coffeeList(storeId: $storeId) {
           edges {
             node {
               id,
