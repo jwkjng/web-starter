@@ -28,3 +28,6 @@ node_modules
 
 # dist pub directory
 dist
+
+# Notes
+todo.md

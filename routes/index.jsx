@@ -7,7 +7,7 @@ import storeQuery from '../queries/store';
 function prepareCoffeeListParams(params, route) {
   return {
     ...params,
-    storeId: params.storeId || "1"
+    storeId: params.storeId || '1'
   };
 }
 

@@ -12,4 +12,13 @@ function Coffee(id, storeId, name, price) {
   this.price = price;
 }
 
-module.exports = { Store: Store, Coffee: Coffee };
+function Purchase(id, coffeeId) {
+  this.id = id;
+  this.coffeeId = coffeeId;
+}
+
+module.exports = {
+  Store: Store,
+  Coffee: Coffee,
+  Purchase: Purchase
+};

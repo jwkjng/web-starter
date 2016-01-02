@@ -1,39 +1,43 @@
-import React from 'react'
-import Relay from 'react-relay'
+import React from 'react';
+import Relay from 'react-relay';
+import Coffee from './Coffee';
 
-// Top-level Component
 class CoffeeList extends React.Component {
   render() {
     var store = this.props.store;
     var coffeeList = store.coffeeList.edges;
+    var purchases = store.purchases.edges;
+    var total = 0.0;
+
+    purchases.forEach(p => {
+      if (!p.node) return;
+      total += p.node.coffee.price;
+    });
     return (
-      <div className="coffeeList">
+      <div className="coffeeStore">
         <h2>{store.name}</h2>
-        {
-          coffeeList.map(edge =>
-            <ul>
-              <Coffee key={edge.node.id} coffee={edge.node} />
-            </ul>
-          )
-        }
+        <div>
+          <span>Your items: </span>
+          <ol>
+            {purchases.map(edge => (
+                <li key={edge.node.id}>{edge.node.coffee.name}</li>
+            ))}
+          </ol>
+          <div>
+            <span>Your Total: ${total}</span>
+          </div>
+        </div>
+        <div className="coffeeList">
+          <ul>
+          {coffeeList.map(edge => (
+            <Coffee key={edge.node.id} coffee={edge.node} store={store} />
+          ))}
+          </ul>
+        </div>
       </div>
     );
   }
 }
-
-class Coffee extends React.Component {
-  render() {
-    var coffee = this.props.coffee;
-    return (
-        <li>
-          <label>{coffee.name} - </label>
-          <span>${coffee.price}</span>
-          <div>{coffee.description}</div>
-        </li>
-    );
-  }
-}
-
 export default Relay.createContainer(CoffeeList, {
   initialVariables: {
     storeId: 1
@@ -41,13 +45,23 @@ export default Relay.createContainer(CoffeeList, {
   fragments: {
     store: () => Relay.QL`
       fragment on Store {
+        id,
         name,
-        coffeeList(storeId: $storeId) {
+        coffeeList(first: 100) {
+          edges {
+            node {
+              ${Coffee.getFragment('coffee')}
+            }
+          }
+        },
+        purchases(first: 100) {
           edges {
             node {
               id,
-              name,
-              price
+              coffee {
+                name,
+                price
+              }
             }
           }
         }

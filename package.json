@@ -1,6 +1,6 @@
 {
   "name": "web-starter",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "O'an Wan Strategy Board Game",
   "main": "index.js",
   "scripts": {
@@ -11,6 +11,7 @@
   "keywords": [
     "React",
     "Relay",
+    "Mutation",
     "GraphQL",
     "Express",
     "Relay Starter",

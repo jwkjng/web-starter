@@ -16,8 +16,9 @@ Browse to *http://localhost:3333* and *http://localhost:3333/2* for store 2.
 
 ## Implementation
 
+The example included in the source is a simple coffee store e-commerce site. The app uses Relay to communicate with the React components and GraphQL to retrieve data back and forth.
 
-
+The example includes Coffee Store which has a list of coffee items. This demonstrates the parent child relationship in Relay. Each coffee item has a Buy button to show how mutations can be used.
 
 
 
