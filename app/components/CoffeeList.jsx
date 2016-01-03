@@ -8,6 +8,15 @@ class CoffeeList extends React.Component {
     var coffeeList = store.coffeeList.edges;
     var purchases = store.purchases.edges;
     var total = 0.0;
+    var purchaseComp = purchases.length == 0 ? (
+      <span>No purchases</span>
+    ) : (
+      <ol>
+        {purchases.map(edge => (
+            <li key={edge.node.id}>{edge.node.coffee.name}</li>
+        ))}
+      </ol>
+    );
 
     purchases.forEach(p => {
       if (!p.node) return;
@@ -18,11 +27,7 @@ class CoffeeList extends React.Component {
         <h2>{store.name}</h2>
         <div>
           <span>Your items: </span>
-          <ol>
-            {purchases.map(edge => (
-                <li key={edge.node.id}>{edge.node.coffee.name}</li>
-            ))}
-          </ol>
+          {purchaseComp}
           <div>
             <span>Your Total: ${total}</span>
           </div>

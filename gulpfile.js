@@ -54,3 +54,16 @@ gulp.task('default', function () {
     'server'
   );
 });
+
+gulp.watch([
+  'schema/*.js',
+  'schema/**/*.js',
+  'app/**/*.jsx',
+  'app/*.jsx'],
+  function () {
+  runSequence('relay', 'webpack');
+});
+
+gulp.watch(['styles/*.scss', 'styles/**/*.scss'], function () {
+  runSequence('relay', ['webpack', 'sass']);
+});
