@@ -13,7 +13,7 @@ module.exports = {
     loaders: [
       {
         exclude: /node_modules/,
-        test: /\.jsx$/,
+        test: /\.js(x)$/,
         loader: 'babel-loader',
         query: {stage: 0, plugins: ['./build/babelRelayPlugin']}
       },
